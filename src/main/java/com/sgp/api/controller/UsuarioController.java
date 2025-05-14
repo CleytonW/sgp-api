@@ -8,20 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgp.api.model.Usuario;
 import com.sgp.api.service.UsuarioService;
 
 @RestController
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
-    @GetMapping("/usuarios")
+    @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
         return ResponseEntity.ok().body(usuarioService.carregarUsuariosCadastrados());
     }
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Usuario>> bsucarUsuarioPeloId(@PathVariable("id") Long id) {
         Optional<Usuario> usuario = usuarioService.oberDadosUsuarioPeloId(id);
 
@@ -33,14 +35,14 @@ public class UsuarioController {
     }
 
 
-    @DeleteMapping("/usuarios/{id}")
-    public ResponseEntity<Void> deletarUsuario(Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarUsuario(@PathVariable("id") Long id) {
         usuarioService.deletarUsuario(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    
+
     
     
     @Autowired

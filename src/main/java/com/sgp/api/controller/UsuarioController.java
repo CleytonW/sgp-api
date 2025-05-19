@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Usuario>> bsucarUsuarioPeloId(@PathVariable("id") Long id) {
+    public ResponseEntity<Optional<Usuario>> buscarUsuarioPeloId(@PathVariable("id") Long id) {
         Optional<Usuario> usuario = usuarioService.oberDadosUsuarioPeloId(id);
 
         if (usuario.isEmpty()) {
@@ -34,17 +34,17 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuario);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable("id") Long id) {
-        usuarioService.deletarUsuario(id);
+        Optional<Usuario> usuario = usuarioService.oberDadosUsuarioPeloId(id);
+
+        if (usuario.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.noContent().build();
     }
 
-
-    
-    
     @Autowired
     private UsuarioService usuarioService;
 }

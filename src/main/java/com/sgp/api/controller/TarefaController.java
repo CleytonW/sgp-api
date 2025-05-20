@@ -1,15 +1,16 @@
 package com.sgp.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgp.api.model.Tarefa;
-import com.sgp.api.repository.TarefaRepository;
 import com.sgp.api.service.TarefaService;
 
 @RestController
@@ -24,8 +25,15 @@ public class TarefaController {
         return ResponseEntity.ok().body(tarefaService.carregarTarefas());
     }
 
-    @GetMapping("/{id)")
-    
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Tarefa>> buscarTarefaPeloId(@PathVariable("id") Long id) {
+        Optional<Tarefa> tarefa = tarefaService.carregarTarefasPeloId(id);
+
+        if (tarefa.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(tarefa);
+    }
 
 
 

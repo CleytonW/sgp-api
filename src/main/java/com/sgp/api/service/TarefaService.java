@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sgp.api.model.Tarefa;
 import com.sgp.api.repository.TarefaRepository;
 
+@Service
 public class TarefaService {
     
     @Autowired

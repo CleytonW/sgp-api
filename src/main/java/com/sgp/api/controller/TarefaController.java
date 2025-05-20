@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,17 @@ public class TarefaController {
         return ResponseEntity.ok().body(tarefa);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirTarefa(@PathVariable("id") Long id) {
+        Optional<Tarefa> tarefa = tarefaService.carregarTarefasPeloId(id);
 
+        if (tarefa.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        tarefaService.deletarTarefa(id);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

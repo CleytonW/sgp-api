@@ -11,16 +11,15 @@ import com.sgp.api.repository.TarefaRepository;
 
 @Service
 public class TarefaService {
-    
-    
+
     public List<Tarefa> carregarTarefas() {
         return tarefaRepository.findAll();
     }
-    
+
     public Optional<Tarefa> carregarTarefasPeloId(Long id) {
         return tarefaRepository.findById(id);
     }
-    
+
     public void deletarTarefa(Long id) {
         tarefaRepository.deleteById(id);
     }

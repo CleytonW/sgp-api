@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +56,19 @@ public class TarefaController {
     @PostMapping
     public ResponseEntity<Tarefa> cadastrarTarefa(@RequestBody Tarefa tarefa) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.salavarTarefa(tarefa));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable("id") Long id, @RequestBody Tarefa dadosTarefa) {
+        Optional<Tarefa> tarefa = tarefaService.carregarTarefasPeloId(id);
+
+        if (tarefa.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        dadosTarefa.setId(id);
+
+        return ResponseEntity.ok().body(tarefaService.salavarTarefa(dadosTarefa));
     }
 
 }

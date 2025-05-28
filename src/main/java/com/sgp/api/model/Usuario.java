@@ -3,6 +3,7 @@ package com.sgp.api.model;
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sgp.api.constants.StatusUsuario;
 import com.sgp.api.dto.UsuarioDTO;
 
@@ -13,6 +14,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,18 +30,29 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Campo 'nome' é obrigatorio")
     @Column(nullable = false)
     private String nome;
 
+    @NotNull(message = "Campo 'cpf' é obrigatorio")
+    @Pattern(
+        regexp = "\\d{3}.\\d{3}.\\d{3}-\\d{2}",
+        message = "O campo 'cpf deve estar no formato XXX.XXX.XXX-XX"
+    )
     @Column(nullable = false, unique = true)
     private String cpf;
 
+    @Pattern(
+        regexp = "^[A-Za--z0-9+_.-]+@[A-Za-z0-9.-]+$",
+        message = "Email invalido."
+    )
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, length = 19)
     private String senha;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
@@ -50,20 +64,20 @@ public class Usuario {
 
         UsuarioDTO dto = new UsuarioDTO();
 
-            dto.setCpf(cpf);
-            dto.setId(id);
-            dto.setStatus(status);
-            dto.setDataNascimento(dataNascimento);
-            dto.setEmail(email);
-            dto.setNome(nome);
-            
-            LocalDate dataAtual = LocalDate.now();
+        dto.setCpf(cpf);
+        dto.setId(id);
+        dto.setStatus(status);
+        dto.setDataNascimento(dataNascimento);
+        dto.setEmail(email);
+        dto.setNome(nome);
 
-            Period periodo = Period.between(dataNascimento, dataAtual);
+        LocalDate dataAtual = LocalDate.now();
 
-            dto.setIdade(periodo.getYears());
+        Period periodo = Period.between(dataNascimento, dataAtual);
 
-            return dto;
+        dto.setIdade(periodo.getYears());
+
+        return dto;
     }
 
 }

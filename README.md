@@ -18,7 +18,7 @@ O objetivo é oferecer todos os serviços necessários para o funcionamento do [
 - **DevTools** — Hot reload para agilizar o desenvolvimento.
 - **Maven** — Gerenciamento de dependências e build.
 
----
+
 
 ## Funcionalidades
 
@@ -28,10 +28,10 @@ O objetivo é oferecer todos os serviços necessários para o funcionamento do [
 - Configuração de **entidades e repositórios JPA** para fácil manipulação do banco.
 - Preparado para integração direta com o **front-end**.
 
----
+
 
 ## Estrutura do Projeto
-
+```bash
 sgp-api/
 ├── src/main/java/com/sgp/api
 │ ├── controller/ # Endpoints da API
@@ -42,12 +42,7 @@ sgp-api/
 ├── src/main/resources/
 │ ├── application.properties # Configurações do banco e ambiente
 └── pom.xml # Dependências Maven
-
-yaml
-Copiar
-Editar
-
----
+```
 
 ## Pré-requisitos
 
@@ -55,51 +50,42 @@ Editar
 - **Maven** instalado.
 - **MySQL** configurado e rodando.
 
----
 
 ## Configuração do Ambiente
 
 1. **Clone o repositório**
    ```bash
    git clone https://github.com/CleytonW/sgp-api.git
-Configure o banco de dados no arquivo src/main/resources/application.properties:
-
-properties
-Copiar
-Editar
-spring.datasource.url=jdbc:mysql://localhost:3306/sgp
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
-spring.jpa.hibernate.ddl-auto=update
-Instale as dependências
-
-bash
-Copiar
-Editar
-mvn install
-Execute o projeto
-
-bash
-Copiar
-Editar
-mvn spring-boot:run
+2. Configure o banco de dados no arquivo ```src/main/resources/application.properties:```
+   ```bash
+    spring.datasource.url=jdbc:mysql://localhost:3306/sgp
+    spring.datasource.username=seu_usuario
+    spring.datasource.password=sua_senha
+    spring.jpa.hibernate.ddl-auto=update
+    Instale as dependências
+3. Instale as dependências
+   ```bash
+    mvn install
+4. Execute o projeto
+   ```bash
+    mvn spring-boot:run
 A API estará disponível em:
+   ```bash
+    http://localhost:8080
+```
 
-arduino
-Copiar
-Editar
-http://localhost:8080
-Integração com o Front-end
+# Integração com o Front-end
 O SGP API foi desenvolvido para trabalhar em conjunto com o front-end SGP JS.
 Essa integração permite que as operações sejam feitas via interface gráfica, mantendo a comunicação via JSON.
 
-Próximos Passos
-Implementar autenticação e autorização (Spring Security + JWT).
+# Próximos Passos
 
-Adicionar testes automatizados.
+- Implementar autenticação e autorização (Spring Security + JWT).
 
-Criar documentação da API (Swagger/OpenAPI).
+- Adicionar testes automatizados.
 
-Autor:
+- Criar documentação da API (Swagger/OpenAPI).
+
+# Autor
 
 [**Cleyton Melo**](https://github.com/CleytonW)
